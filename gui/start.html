@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>sa</title>
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+
+    <script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link href='./assets/style.css' rel='stylesheet' />
+    <link href="./calendar.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <meta charset="utf-8" />
+    <script>
+        const electron = require("electron");
+        const { ipcRenderer } = electron;</script>
+</head>
+<body>
+    <nav>
+        <div id="closeBtn"></div>
+        <div id="maxBtn" style=""></div>
+        <div id="minBtn"></div>
+    </nav>
+    <div id="container">
+        <div id="logo"></div>
+        <button id="opencall" title="Join call"></button>
+
+        <button id="login" title ="Login"></button>
+        <button id="calendarBtn" title="Calendar"></button>
+
+ 
+    </div>
+
+
+<script src="./script.js"></script>
+<script src="./layOutDay.js"></script>
+    <script>
+        let opencall = document.querySelector("#opencall");
+        let login = document.querySelector("#login");
+        let maxBtn = document.querySelector("#maxBtn");
+        let calendarBtn = document.querySelector("#calendarBtn");
+        let closeBtn = document.querySelector("#closeBtn");
+        let minBtn = document.querySelector("#minBtn");
+
+        opencall.addEventListener("click", () => {
+            ipcRenderer.send("key:opencall");
+
+
+        });
+        login.addEventListener("click", () => {
+            ipcRenderer.send("key:login");
+
+
+        });
+        calendarBtn.addEventListener("click",() => {
+
+            
+                ipcRenderer.send("key:calendar");
+     
+
+
+        });
+        closeBtn.addEventListener("click",
+            () => {
+
+                ipcRenderer.send("key:closeBtn", window.name);
+            });
+        /*maxBtn.addEventListener("click",
+            () => {
+                ipcRenderer.send("key:maximize");
+            });*/
+        minBtn.addEventListener("click",
+            () => {
+                ipcRenderer.send("key:minimize");
+                console.log("salam");
+            });
+    </script>
+</body>
+</html>

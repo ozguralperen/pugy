@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@700&display=swap" rel="stylesheet">
+    <title>sa</title>
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+
+    <script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+    <link href='./assets/inputstyle.css' rel='stylesheet' />
+    <link href='./assets/style.css' rel='stylesheet' />
+    <meta charset="utf-8" />
+    <script>
+        const electron = require("electron");
+        const { ipcRenderer } = electron;</script>
+</head>
+<body>
+    <nav>
+        <div id="closeBtn"></div>
+        <div id="maxBtn"></div>
+        <div id="minBtn"></div>
+
+
+    </nav>
+    <form style="left:60px; top:80px; position:absolute">
+
+        <div id="logo" style="width:150px;height:150px"></div>
+        <div class="omrs-input-group">
+            <label class="omrs-input-underlined">
+                <input required>
+                <span class="omrs-input-label">E-mail</span>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"></svg>
+            </label>
+        </div>
+        <div class="omrs-input-group">
+            <label class="omrs-input-underlined">
+                <input required>
+                <span class="omrs-input-label">Password</span>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"></svg>
+            </label>
+        </div>
+
+        <button class="logButton">Login</button>
+    </form>
+    <script>
+        let closeBtn = document.querySelector("#closeBtn");
+        let minBtn = document.querySelector("#minBtn");
+        closeBtn.addEventListener("click",
+            () => {
+
+                ipcRenderer.send("key:closeBtn");
+            });
+        minBtn.addEventListener("click",
+            () => {
+                ipcRenderer.send("key:minimize");
+                console.log("salam");
+            });
+
+
+
+    </script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCrWNmwEgiyVM2zxtr2SQ1P7bGbnzKSaok",
+        authDomain: "pugy-fbff5.firebaseapp.com",
+        databaseURL: "https://pugy-fbff5.firebaseio.com",
+        projectId: "pugy-fbff5",
+        storageBucket: "pugy-fbff5.appspot.com",
+        messagingSenderId: "252486626379",
+        appId: "1:252486626379:web:21d6e355ce6601d5a0f1ce"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);</script>
+    </body >
+        </html >

@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <!-- Insert this line above script imports  -->
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+
+    <!-- normal script imports etc  -->
+
+    <script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="Resizer.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
+
+
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8" />
+    <link href='./assets/style.css' rel='stylesheet' />
+
+
+
+    <script>
+
+        // Bu ipcrenderer yani Front-End Scriptini ayrı dosyaya main-frontend.js diye taşıyabiliriz.
+
+        // Back endden c koduyla haberleşerek gelen "Biri yeni kamera açtı" bildirimi
+        // bu koda gelecek , buradan da ilgili resizer.js scripti çalıştırılacak.
+
+        const electron = require("electron");
+        const { ipcRenderer } = electron;
+        // BACK END DEN GELEN VERİLERİ DİNLEYEN KISIM..
+        ipcRenderer.on("key:Someone", (err, data) => {
+            // Biri kamera açmış.
+            // Hemen kameraları resize eden scripti çalıştıralım.
+            console.log("Döndük backendden");
+            jQuery.getScript("Resizer.js", function () {
+                AddObj();
+            });
+
+        });
+
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div id="closeBtn"></div>
+        <div id="maxBtn"></div>
+        <div id="minBtn"></div>
+
+
+    </nav>
+    <div class="rightsidebar">
+      
+        
+        <div id="chatbar"><div id="messages"></div></div>
+       
+            <textarea type="text" placeholder="Type your text here...." id="chatsender"></textarea>
+            <button  style="position: absolute;bottom:0" onclick="sendMessage()" class="logButton" id="#sendBtn">
+                Send
+            </button>
+
+
+    </div>
+
+
+    <div class="container">
+
+
+
+        <button id="addBtn"
+                style="position: fixed; bottom: 0;">Add User</button>
+       
+        <video  class="camerabox">
+        </video>
+        
+
+
+    </div>
+
+
+    <script>
+        // event listenerlar..
+
+        let sendBtn = document.querySelector("#sendBtn");
+        let addBtn = document.querySelector("#addBtn");
+
+        let maxBtn = document.querySelector("#maxBtn");
+        let closeBtn = document.querySelector("#closeBtn");
+        let minBtn = document.querySelector("#minBtn");
+     /*   sendBtn.addEventListener("click", () => {
+            // Back endi tetiklemesi gereken c kodu yerine buradan tetikliyoruz şimdilik.
+
+            //  ipcRenderer.send("NewCamera", "NewCameraTriggerer");
+            ipcRenderer.send("chatInput", chatsender.value);
+        });*/
+         if(sendBtn)sendBtn.addEventListener("click", () => {
+             sendMessage();
+
+         });
+         if(addBtn)addBtn.addEventListener("click",() => {
+             ipcRenderer.send("NewCamera", "NewCameraTriggerer");
+         });
+        closeBtn.addEventListener("click",
+            () => {
+
+                ipcRenderer.send("key:closeBtn");
+            });
+        maxBtn.addEventListener("click",
+            () => {
+                ipcRenderer.send("key:maximize");
+            });
+        minBtn.addEventListener("click",
+            () => {
+                ipcRenderer.send("key:minimize");
+                console.log("salam");
+            });
+        let constraintObj = {
+            audio: false,
+            video: {
+                facingMode: "user",
+                width: { min: 640, ideal: 1280, max: 1920 },
+                height: { min: 480, ideal: 720, max: 1080 }
+            }
+        };
+        // width: 1280, height: 720  -- preference only
+        // facingMode: {exact: "user"}
+        // facingMode: "environment"
+
+        //handle older browsers that might implement getUserMedia in some way
+        if (navigator.mediaDevices === undefined) {
+            navigator.mediaDevices = {};
+            navigator.mediaDevices.getUserMedia = function (constraintObj) {
+                let getUserMedia = navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+                if (!getUserMedia) {
+                    return Promise.reject(new Error('getUserMedia is not implemented in this browser'));
+                }
+                return new Promise(function (resolve, reject) {
+                    getUserMedia.call(navigator, constraintObj, resolve, reject);
+                });
+            }
+        } else {
+            navigator.mediaDevices.enumerateDevices()
+                .then(devices => {
+                    devices.forEach(device => {
+                        console.log(device.kind.toUpperCase(), device.label);
+                        //, device.deviceId
+                    })
+                })
+                .catch(err => {
+                    console.log(err.name, err.message);
+                })
+        }
+
+        navigator.mediaDevices.getUserMedia(constraintObj)
+            .then(function (mediaStreamObj) {
+                //connect the media stream to the first video element
+                let video = document.querySelector('video');
+                if ("srcObject" in video) {
+                    video.srcObject = mediaStreamObj;
+                } else {
+                    //old version
+                    video.src = window.URL.createObjectURL(mediaStreamObj);
+                }
+
+                video.onloadedmetadata = function (ev) {
+                    //show in the video element what is being captured by the webcam
+                    video.play();
+                };
+
+                //add listeners for saving video/audio
+                let start = document.getElementById('btnStart');
+                let stop = document.getElementById('btnStop');
+                let vidSave = document.getElementById('vid2');
+                let mediaRecorder = new MediaRecorder(mediaStreamObj);
+                let chunks = [];
+
+                start.addEventListener('click', (ev) => {
+                    mediaRecorder.start();
+                    console.log(mediaRecorder.state);
+                })
+                stop.addEventListener('click', (ev) => {
+                    mediaRecorder.stop();
+                    console.log(mediaRecorder.state);
+                });
+                mediaRecorder.ondataavailable = function (ev) {
+                    chunks.push(ev.data);
+                }
+                mediaRecorder.onstop = (ev) => {
+                    let blob = new Blob(chunks, { 'type': 'video/mjpeg;' });
+                    chunks = [];
+                    let videoURL = window.URL.createObjectURL(blob);
+                    vidSave.src = videoURL;
+                }
+            })
+            .catch(function (err) {
+                console.log(err.name, err.message);
+            });
+
+        /*********************************
+        getUserMedia returns a Promise
+        resolve - returns a MediaStream Object
+        reject returns one of the following errors
+        AbortError - generic unknown cause
+        NotAllowedError (SecurityError) - user rejected permissions
+        NotFoundError - missing media track
+        NotReadableError - user permissions given but hardware/OS error
+        OverconstrainedError - constraint video settings preventing
+        TypeError - audio: false, video: false
+        *********************************/
+
+    </script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+<!-- TODO: Add SDKs for Firebase products that you want to use
+https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCrWNmwEgiyVM2zxtr2SQ1P7bGbnzKSaok",
+        authDomain: "pugy-fbff5.firebaseapp.com",
+        databaseURL: "https://pugy-fbff5.firebaseio.com",
+        projectId: "pugy-fbff5",
+        storageBucket: "pugy-fbff5.appspot.com",
+        messagingSenderId: "252486626379",
+        appId: "1:252486626379:web:21d6e355ce6601d5a0f1ce"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var myName = "emre";
+
+    function sendMessage() {
+       
+        var message = document.getElementById("chatsender").value;
+        if (message != "") 
+        firebase.database().ref("messages").push().set({
+            "sender": myName,
+            "message": message
+        });
+
+        return false;
+    }
+
+    firebase.database().ref("messages").on("child_added",
+        function (snapshot) {
+
+            var html = "";
+            if (snapshot.val().sender == myName) {
+                html += "<div class='mymessage'>"
+                html += snapshot.val().message;
+                html += "<div>";
+            } else {
+                html += "<div class='othermessage'>";
+                html += "<div class='sendername'>";
+                html += snapshot.val().sender;
+                html += "</div>";
+                html +=  snapshot.val().message;
+                html += "</div>";
+            }
+            document.getElementById("messages").innerHTML += html;
+            document.getElementById("chatsender").value = "";
+        });
+
+</script>
+</body>
+
+</html>

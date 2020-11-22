@@ -1,0 +1,425 @@
+
+
+
+
+header {
+    background-color: #333;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 40px;
+    position: fixed;
+}
+nav {
+    background-color: black;
+    
+    top: 00px;
+    left: 0px;
+    width: 100%;
+    height: 26px;
+    position: fixed;
+    z-index: 1;
+    -webkit-app-region: drag;
+}
+.rightsidebar {
+    background-color: #3F3F3F;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 15%;
+    position: fixed;
+    z-index: 0;
+}
+.container {
+    position: relative;
+    left:0;
+    height: 100%;
+    max-width: 80%;
+    text-align: center;
+    top: 40px;
+    overflow : hidden;
+}
+.navitem {
+    top: 10px;
+    width: 10%;
+    position: fixed;
+    height: 70px;
+    background-color: #013a63;
+    color: white;
+    opacity:.6;
+    text-align: center;
+}
+content{
+    position:relative;
+    float:right;
+    height:100%;
+}
+body {
+    background-color: #393e46;
+}
+#logo {
+    width:300px;
+    height: 300px;
+    position: relative;
+    background-size:cover;
+    background-image:url("logo2.png");
+    margin:auto;
+    z-index: -1;
+    top:20px;
+    
+}
+#chatbar {
+    background-color: #3F3F3F;
+    max-width: 100%;
+    height: 80%;
+    position: relative;
+    overflow: scroll;
+    top: 60px;
+    padding-bottom: 30px;
+}
+#chatbar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+}
+
+#chatbar::-webkit-scrollbar {
+    width: 10px;
+    background-color: #F5F5F5;
+    
+}
+
+#chatbar::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border: 2px solid #555555;
+}
+.camerabox {
+    width: 400px;
+    height: 300px;
+    background-color: #3F3F3F;
+    position: relative;
+    background-size: cover;
+    opacity: 1;
+    float: left;
+    border-radius: 5px;
+}
+.cameraitem {
+    width: 100%;
+    height: 70%;
+    position: relative;
+    margin-top:10%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image:url('xd.jpg');
+}
+#chatsender {
+    width: 100%;
+    height: 10%;
+    position: absolute;
+    text-align: start;
+    left: 0px;
+    resize: none;
+    background-color: #3F3F3F;
+    border: 0;
+    border-top: 1px solid black;
+    color: white;
+    box-shadow: 0;
+    outline: none;
+   
+}
+
+#closeBtn {
+    width: 26px;
+    height: 26px;
+    -webkit-app-region: no-drag;
+    float: right;
+    background-image: url("crosss.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    transition: all .2s ease-in-out;
+}
+#closeBtn:hover {
+    background-image: url("crosshover.png");
+
+}
+
+#maxBtn {
+    width: 26px;
+    height: 26px;
+    -webkit-app-region: no-drag;
+    float: right;
+    background-image: url("maxx.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#maxBtn:hover{
+    background-image:url("maxhover.png");
+}
+#minBtn {
+    width: 26px;
+    height: 26px;
+    -webkit-app-region: no-drag;
+    float: right;
+    background-image: url("min.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#minBtn:hover{
+    background-image:url("minn.png");
+}
+-webkit-scrollbar{
+    overflow:false;
+}
+
+#opencall {
+    height: 110px;
+    width: 110px;
+    position: relative;
+    background-color: #fabc3d;
+    background-image: url("joinnnn.png");
+    background-size: cover;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    margin: auto;
+    left: 28%;
+    transition: all .1s ease-in-out;
+    top: 30px;
+    border-radius: 20px;
+}
+#opencall:hover {
+    filter: blur(1px);
+}
+#login {
+    height: 110px;
+    width: 110px;
+    position: relative;
+    background-color: #fabc3d;
+    background-image: url("loginnn.png");
+    background-size: cover;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    margin: auto;
+    left: 28%;
+    top: 30px;
+    border-radius: 20px;
+    transition: all .1s ease-in-out;
+    color: rgba(0, 0, 0, 0.0);
+}
+    #login:hover {
+        
+        filter: blur(1px);
+    }
+
+
+    
+#logButton {
+    height: 40px;
+    width: 218px;
+    background-color: #3d7cfa;
+    position: relative;
+    border-radius: 6px;
+    color: white;
+    margin: auto;
+    transition: all .2s ease-in-out;
+    outline: none;
+    left: 20%;
+}
+#logButton:hover{
+    box-shadow:20px black inset;
+}
+#email {
+    height: 16px;
+    width: 300px;
+    margin-bottom: 30px;
+    background-color: #a094a3;
+    color: white;
+    box-shadow: 0;
+    outline: none;
+    left: 100px;
+    margin-left: auto;
+    position:relative;
+}
+    #email::placeholder {
+        color: #464139;
+    }
+#pass {
+    height: 16px;
+    width: 300px;
+    margin-bottom: 30px;
+    background-color: #a094a3;
+    color: white;
+    box-shadow: 0;
+    outline: none;
+    left: 12%;
+    position: relative;
+}
+    #pass::placeholder
+
+{
+    color: #464139;
+}
+.logButton {
+    box-shadow: inset 0px 1px 0px 0px #fff6af;
+    background: linear-gradient(to bottom, #fabb3d 5%, #ffab23 100%);
+    background-color: #fabb3d;
+    border-radius: 16px;
+    border: 1px solid #ffaa22;
+    display: inline-block;
+    cursor: pointer;
+    color: #333333;
+    font-family: Arial;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 14px 53px;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #ffee66;
+    text-align:center;
+}
+
+    .logButton:hover {
+        background: linear-gradient(to bottom, #ffab23 5%, #fabb3d 100%);
+        background-color: #ffab23;
+    }
+
+    .logButton:active {
+        position: relative;
+    }
+
+.idbox {
+    width: 100px;
+    height: 40px;
+    background-color: #55a79a;
+    border-radius: 6px;
+    text-align: center;
+    font-family: 'Roboto';
+    position: relative;
+    float: left;
+}
+.lessoncontainer {
+    top: 60px;
+    position: absolute;
+    color: black;
+}
+.teacherbox {
+    width: 240px;
+    height: 40px;
+    background-color: #55a79a;
+    border-radius: 6px;
+    text-align: center;
+    font-family: 'Roboto';
+    position: relative;
+    float: left;
+    margin-left: 15px;
+}
+.joinbox {
+    width: 100px;
+    height: 30px;
+    background-color: #2D95EC;
+    border-radius: 6px;
+    text-align: center;
+    font-family: 'Roboto';
+    position: relative;
+    float: left;
+    margin-left: 75px;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+    outline: none;
+}
+    .joinbox:hover {
+        background-color: #2F8EDE;
+    }
+#lessTable {
+    border-spacing: 1px;
+    border-collapse: collapse;
+}
+.tableitem:hover {
+    background-color: #ececec;
+}
+#joinBtn {
+    box-shadow: 0px 10px 14px -7px #276873;
+    background: linear-gradient(to bottom, #599bb3 5%, #2285d6 100%);
+    background-color: #599bb3;
+    border-radius: 8px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px #3d768a;
+    padding-top: 10px;
+    margin-left: 75px;
+    width: 100px;
+    height: 30px;
+    transition: all .3s ease-in-out;
+}
+
+#joinBtn:hover {
+    background: linear-gradient(to bottom, #2285d6 5%, #599bb3 100%);
+    background-color: #2285d6;
+}
+
+#joinBtn:active {
+    position: relative;
+    top: 1px;
+}
+#calendarBtn {
+    height: 110px;
+    width: 110px;
+    position: relative;
+    background-color: #fabc3d;
+    background-image: url("calendarr.png");
+    background-size: cover;
+    text-align: center;
+    font-size: 16px;
+    color: white;
+    margin: auto;
+    left: 28%;
+    top: 30px;
+    border-radius: 20px;
+    transition: all .1s ease-in-out;
+}
+    #calendarBtn:hover {
+        filter: blur(1px);
+    }
+    #messages {
+        color: white;
+
+    }
+.mymessage {
+    padding: 6px 1px;
+    border-radius: 6px 0 6px 0;
+    position: relative;
+   
+    background: rgba(250, 187, 61, .9);
+    border: 2px solid rgba(255, 170, 34, .9);
+    color: whitesmoke;
+    font-size: 12px;
+    width: 95%;
+    margin: 0 0 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+}
+.othermessage {
+    width: 95%;
+    margin: 0 0 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    background: rgba(0, 114, 135, .9);
+    border: 2px solid rgba(0, 114, 135, .9);
+    align-self: flex-start;
+
+}
+.sendername {
+    font-size: 12px;
+    margin: 0 0 15px;
+    color: white;
+    align-self: flex-start;
+}

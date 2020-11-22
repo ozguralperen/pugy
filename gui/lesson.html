@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <?xml version="1.0" encoding="UTF-8" ?>
+    <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
+
+    <!-- normal script imports etc  -->
+
+    <script type="text/javascript" src="jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="Resizer.js"></script>
+
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap" rel="stylesheet">
+    <link href='./assets/style.css' rel='stylesheet' />
+    <meta charset="utf-8" />
+    <script>
+        const electron = require("electron");
+        const { ipcRenderer } = electron;
+    </script>
+</head>
+<body>
+<nav>
+    <div id="closeBtn"></div>
+    <div id="maxBtn" style=""></div>
+    <div id="minBtn"></div>
+</nav>
+<div id="logo" style="opacity: .6"></div>
+    <table  style="width:100%"
+            cellpadding="15" border="1" id="lessTable">
+        <thead style="        background-color: #2E2C2C;
+        color: white;
+        border-radius: 30px;">
+        <tr>
+            <th>Lesson-id</th>
+            <th>Teacher</th>
+            <th >Join</th>
+        </tr>        
+
+        </thead>
+        <tbody style="background-color: #f8f9fa; width: 800px;color:black"><tr class="tableitem">
+            <td>176874</td>
+            <td>Mustafa Yağcı</td>
+            <td><div id="joinBtn">Join</div></td>
+
+
+
+        </tbody>
+        
+    </table>
+    <script>
+        let maxBtn = document.querySelector("#maxBtn");
+        let closeBtn = document.querySelector("#closeBtn");
+        let minBtn = document.querySelector("#minBtn");
+        let joinBtn = document.querySelector('#joinBtn');
+       
+        joinBtn.addEventListener('click', () => {
+            ipcRenderer.send("key:join");
+        })
+        
+        closeBtn.addEventListener("click",
+        () => {
+
+        ipcRenderer.send("key:closeBtn");
+        });
+        maxBtn.addEventListener("click",
+        () => {
+        ipcRenderer.send("key:maximize");
+        });
+        minBtn.addEventListener("click",
+        () => {
+        ipcRenderer.send("key:minimize");
+        console.log("salam");
+        });
+    </script>
+</body>
+</html>

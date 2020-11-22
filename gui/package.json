@@ -1,0 +1,19 @@
+{
+  "name": "kafvideo-gui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+    "dependencies": {
+        "@angular/animations": "^11.0.2",
+        "@angular/cdk": "^11.0.0",
+        "electron": "^11.0.2",
+        "truly-ui": "^5.0.0",
+        "webcamjs": "^1.0.26"
+    }
+
+}
